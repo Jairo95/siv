@@ -1,0 +1,16 @@
+{% if custom_message_list %}
+    <ul>
+    {% for custom_message in custom_message_list %}
+        <li>{{ custom_message.0.worry_message}}
+            <ul> {% for opinion_message in custom_message.1 %}
+                <li>
+                    {{ opinion_message.opinion_message }}
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
