@@ -1,10 +1,13 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
+from django.urls import reverse_lazy
+from django.views import generic
 
+from forum.custom_models.forum_forms import WorryMessageForm
 from forum.custom_models.message_mapped import WorryMessageMapped, OpinionMessageMapped
-from forum.models import WorryMessage, OpinionMessage, WorryUser, UserAction
+from forum.models import WorryMessage, OpinionMessage, WorryUser, UserAction, WorryCategory, WorryType
 
 
 def index(request):
@@ -23,18 +26,40 @@ def index(request):
         )
         for worry_message in latest_message_list
     ]
-    '''
-    custom_message_list = [
-        [worry_message_pub, [opinion_message for opinion_message
-                             in OpinionMessage.objects.filter(messagerecord__worry_message__id=worry_message_pub.id)
-                             ]
-         ] for worry_message_pub in latest_message_list]
-    context = {
-        'custom_message_list': custom_message_list,
-    }
-    return render(request, 'forum/index.html', context)
-    '''
-    return render(request, 'forum/index.html', {'message_mapped': message_mapped})
+    return render(request, 'forum/index.html', {'message_mapped': message_mapped, 'form': WorryMessageForm})
+
+
+class MessageView(generic.edit.CreateView):
+    form_class = WorryMessageForm
+    template_name = 'forum/worry_message/create.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('home')
+
+
+def create_worry_message(request):
+    if request.method == 'POST':
+        print('SOMETHING: ', str(request.POST))
+        print('CAT: ', str(request.POST['worry_category']))
+        worry_message = WorryMessage()
+        worry_category = WorryCategory.objects.get(id=request.POST['worry_category'])
+        worry_type = WorryType.objects.get(id=request.POST['worry_type'])
+        worry_message.worry_message = request.POST['worry_message']
+        worry_message.worry_category = worry_category
+        worry_message.worry_type = worry_type
+        if worry_message:
+            worry_message.save()
+            user_action = UserAction()
+            user_action.worry_message = worry_message
+            user_action.action = 'PUBLISH'
+            user_action.worry_user = WorryUser.objects.get(id=request.user.id)
+
+            user_action.save()
+
+            return redirect('home')
+        else:
+            return HttpResponse('error')
+    else:
+        return HttpResponse('Error')
 
 
 def opinions_message(request, worry_message_id):

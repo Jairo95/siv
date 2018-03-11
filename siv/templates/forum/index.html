@@ -2,6 +2,9 @@
 
 {% block content_app %}
     <div class="siv-forum-content">
+        <div class="card card-body">
+            {% include 'forum/worry_message/create.html' with form=form %}
+        </div>
         {% if message_mapped %}
             <div class="list-group">
                 {% for custom_message in message_mapped %}
@@ -12,15 +15,15 @@
                         </div>
                         <p class="mb-1">{{ custom_message.worry_message.worry_message}} <strong> {{ custom_message.worry_message.worry_type.observation }}</strong></p>
                         <small >
-                            <div class="row">
-                            <div class="siv-forum-underline"
-                                data-toggle="collapse" href="#collapse{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}"
-                            >
-                                Opiniones
-                            </div>
-                            <div class="siv-forum-underline">
-                                Opinar
-                            </div>
+                            <div class="row siv-forum-split">
+                                <div class="siv-forum-underline"
+                                     data-toggle="collapse" href="#collapse{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}"
+                                >
+                                    Opiniones {{ custom_message.opinion_message_list|length }}
+                                </div>
+                                <div class="siv-forum-underline">
+                                    Opinar
+                                </div>
                             </div>
                         </small>
                     </a>
@@ -35,7 +38,11 @@
                                             <small>{{ opinion_message.opinion_message.publish_date }}</small>
                                         </div>
                                         <p class="mb-1">{{ opinion_message.opinion_message.opinion_message }}</p>
-                                        <small>Votar - 5</small>
+                                        <small>
+                                            <div class="row siv-forum-split">
+                                                <div class="siv-forum-underline">Votar {{ opinion_message.opinion_message.grade_opinion }}</div>
+                                            </div>
+                                        </small>
                                     </a>
                                 {% endfor %}
                             </div>
@@ -44,7 +51,7 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p>No polls are available.</p>
+            <p>No hay contenido que mostrar</p>
         {% endif %}
     </div>
 

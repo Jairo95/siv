@@ -6,7 +6,7 @@ from django.db.models import Q
 
 class WorryUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     user_name = models.CharField(default='USERNAME', max_length=100, null=False)
     date_created = models.DateTimeField(default=timezone.now)
 
@@ -15,7 +15,7 @@ class WorryUser(models.Model):
 
 
 class WorryCategory(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     observation = models.CharField(default='OBSERVATION', max_length=200, null=False)
     description = models.CharField(max_length=1000, null=True)
 
@@ -24,7 +24,7 @@ class WorryCategory(models.Model):
 
 
 class WorryType(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     observation = models.CharField(default='OBSERVATION', max_length=200, null=False)
     description = models.CharField(max_length=1000, null=True)
 
@@ -33,7 +33,7 @@ class WorryType(models.Model):
 
 
 class WorryMessage(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     worry_category = models.ForeignKey(WorryCategory, on_delete=models.CASCADE)
     worry_type = models.ForeignKey(WorryType, on_delete=models.CASCADE)
     worry_message = models.TextField(default='MY EXPERIENCE', null=False)
@@ -50,9 +50,8 @@ class WorryMessage(models.Model):
         return WorryMessage.objects.filter(Q(status_message='PUBLISHED') | Q(status_message='UPDATED'))
 
 
-
 class OpinionMessage(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     opinion_message = models.TextField(default='MY OPINION', null=False)
     publish_date = models.DateTimeField(default=timezone.now)
     opinion_updated = models.DateTimeField(null=True, blank=True)
@@ -65,7 +64,7 @@ class OpinionMessage(models.Model):
 
 
 class UserAction(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     worry_user = models.ForeignKey(WorryUser, on_delete=models.CASCADE)
     worry_message = models.ForeignKey(WorryMessage, on_delete=models.CASCADE, null=True, blank=True)
     opinion_message = models.ForeignKey(OpinionMessage, on_delete=models.CASCADE, null=True, blank=True)
@@ -78,7 +77,7 @@ class UserAction(models.Model):
 
 
 class MessageRecord(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     worry_message = models.ForeignKey(WorryMessage, on_delete=models.CASCADE)
     opinion_message = models.ForeignKey(OpinionMessage, on_delete=models.CASCADE)
     record_date = models.DateTimeField(default=timezone.now)
@@ -88,7 +87,7 @@ class MessageRecord(models.Model):
 
 
 class ConfigurationPreference(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     worry_user = models.ForeignKey(WorryUser, on_delete=models.CASCADE)
     worry_category = models.ForeignKey(WorryCategory, on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)

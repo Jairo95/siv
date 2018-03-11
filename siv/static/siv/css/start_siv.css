@@ -21,7 +21,16 @@ body {
 
 .siv-forum-underline {
   border-bottom: 1px solid #4e555b;
-  width: min-content;
+  min-width: 0px !important;
   margin-left: 1em;
   margin-right: 1em;
+}
+
+.siv-forum-split {
+  border-bottom: 1px dotted #6c757d;
+  border-top: 1px dotted #6c757d;
+  width: 100%;
+  padding-bottom: 0.1em;
+  margin-right: auto;
+  margin-left: auto;
 }
