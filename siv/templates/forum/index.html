@@ -1,16 +1,53 @@
-{% if custom_message_list %}
-    <ul>
-    {% for custom_message in custom_message_list %}
-        <li>{{ custom_message.0.worry_message}}
-            <ul> {% for opinion_message in custom_message.1 %}
-                <li>
-                    {{ opinion_message.opinion_message }}
-                </li>
+{% extends 'home/home.html' %}
+
+{% block content_app %}
+    <div class="siv-forum-content">
+        {% if message_mapped %}
+            <div class="list-group">
+                {% for custom_message in message_mapped %}
+                    <a class="list-group-item list-group-item-action flex-column align-items-start" style="background-color: #F7F9F9">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ custom_message.worry_user.user_name }}</h5>
+                            <small>{{ custom_message.worry_message.publish_date }}</small>
+                        </div>
+                        <p class="mb-1">{{ custom_message.worry_message.worry_message}} <strong> {{ custom_message.worry_message.worry_type.observation }}</strong></p>
+                        <small >
+                            <div class="row">
+                            <div class="siv-forum-underline"
+                                data-toggle="collapse" href="#collapse{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}"
+                            >
+                                Opiniones
+                            </div>
+                            <div class="siv-forum-underline">
+                                Opinar
+                            </div>
+                            </div>
+                        </small>
+                    </a>
+
+                    <div class="collapse" id="collapse{{ forloop.counter }}">
+                        <div class="card card-body">
+                            <div class="list-group">
+                                {% for opinion_message in custom_message.opinion_message_list %}
+                                    <a class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{ opinion_message.worry_user.user_name }}</h5>
+                                            <small>{{ opinion_message.opinion_message.publish_date }}</small>
+                                        </div>
+                                        <p class="mb-1">{{ opinion_message.opinion_message.opinion_message }}</p>
+                                        <small>Votar - 5</small>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+            </div>
+        {% else %}
+            <p>No polls are available.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+

@@ -4,11 +4,14 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-    <p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-{% endif %}
+    {% if user.is_authenticated %}
+        {% include 'home/home_in.html' with user=user %}
+        <div class="container-fluid">
+            {% block content_app %}
+                <p>Sin implementar</p>
+            {% endblock %}
+        </div>
+    {% else %}
+        {% include 'home/home_out.html' %}
+    {% endif %}
 {% endblock %}

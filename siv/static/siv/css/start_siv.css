@@ -1,0 +1,27 @@
+body {
+  padding-top: 5rem;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+.dropdown-menu {
+  min-width: 0px !important;
+}
+
+.siv-forum-content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.siv-small-word {
+  font-size: 1px;
+}
+
+.siv-forum-underline {
+  border-bottom: 1px solid #4e555b;
+  width: min-content;
+  margin-left: 1em;
+  margin-right: 1em;
+}

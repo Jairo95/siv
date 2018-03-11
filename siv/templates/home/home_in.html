@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #008080">
+    <a class="navbar-brand" href="{% url 'home'%}">
+        <img src="{% static 'images/tentativo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        SIV
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'categories' %}">Compartir</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-2">
+            <ul class="navbar-nav mr-2">
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"  id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown02">
+                    <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
+                </div>
+            </li>
+            </ul>
+        </form>
+    </div>
+</nav>
