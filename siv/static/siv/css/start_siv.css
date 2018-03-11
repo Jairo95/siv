@@ -27,10 +27,30 @@ body {
 }
 
 .siv-forum-split {
-  border-bottom: 1px dotted #6c757d;
   border-top: 1px dotted #6c757d;
   width: 100%;
   padding-bottom: 0.1em;
   margin-right: auto;
   margin-left: auto;
+}
+
+
+.siv-form {
+  background-color: white;
+}
+
+.siv-form .form-control {
+  height: 50px;
+  overflow: auto;
+}
+
+.ui-widget-overlay.custom-overlay {
+  background-color: #000000;
+  background-image: none;
+  opacity: 0.9;
+  z-index: 1040;
+}
+
+.no-close .ui-dialog-titlebar-close {
+  display: none
 }

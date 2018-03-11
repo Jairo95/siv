@@ -21,7 +21,8 @@
                                 >
                                     Opiniones {{ custom_message.opinion_message_list|length }}
                                 </div>
-                                <div class="siv-forum-underline">
+                                <div class="siv-forum-underline" role="button"
+                                     onclick="open_modal('{% url 'create_opinion' custom_message.worry_message.id %}',  '#popup')">
                                     Opinar
                                 </div>
                             </div>
@@ -30,6 +31,9 @@
 
                     <div class="collapse" id="collapse{{ forloop.counter }}">
                         <div class="card card-body">
+                            <div class="card card-body">
+                                {% include 'forum/opinion_message/create.html' with worry_message_id=custom_message.worry_message.id opinion_message_form=opinion_message_form %}
+                            </div>
                             <div class="list-group">
                                 {% for opinion_message in custom_message.opinion_message_list %}
                                     <a class="list-group-item list-group-item-action flex-column align-items-start">
@@ -50,6 +54,7 @@
                     </div>
                 {% endfor %}
             </div>
+            <div id="popup"></div>
         {% else %}
             <p>No hay contenido que mostrar</p>
         {% endif %}

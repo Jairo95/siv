@@ -1,0 +1,15 @@
+<form class="siv-form" method="post" action="{% url 'create_opinion' worry_message_id%}">
+    {% csrf_token %}
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">¿Qué crees?</span>
+        </div>
+        {{ opinion_message_form.opinion_message }}
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-right">
+        <button class="btn btn-primary" type="submit" style="margin-right: 0px; margin-left: auto">Enviar</button>
+        <button class="btn btn-danger" onclick="close_modal()" type="reset">Cancelar</button>
+        </div>
+    </div>
+</form>

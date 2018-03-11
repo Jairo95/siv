@@ -1,5 +1,5 @@
 from django import forms
-from forum.models import WorryMessage
+from forum.models import WorryMessage, OpinionMessage
 
 
 class WorryMessageForm(forms.ModelForm):
@@ -15,3 +15,16 @@ class WorryMessageForm(forms.ModelForm):
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control'
                 })
+
+
+class OpinionMessageForm(forms.ModelForm):
+
+    class Meta:
+        model = OpinionMessage
+        fields = ['opinion_message']
+
+    def __init__(self, *args, **kwargs):
+        super(OpinionMessageForm, self).__init__(*args, **kwargs)
+        self.fields['opinion_message'].widget.attrs.update({'class': 'form-control'})
+
+

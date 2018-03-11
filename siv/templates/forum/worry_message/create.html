@@ -1,7 +1,14 @@
-<form method="post" action="{% url 'create_message' %}">
+<form class="siv-form" method="post" action="{% url 'create_message' %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-primary" type="submit"
-            style="margin-top: 0.2em; margin-right: auto; margin-left: auto; min-width: 0px !important;"
-    >Compartir</button>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">¿Qué pasa?</span>
+        </div>
+        {{ form.worry_message }}
+    </div>
+    <div class="row" style="width:100%; align-content: right; margin-right: auto; margin-left: auto">
+        {{ form.worry_type }}
+        {{ form.worry_category }}
+        <button class="btn btn-primary" type="submit" style="margin-right: 0px; margin-left: auto">Compartir</button>
+    </div>
 </form>
