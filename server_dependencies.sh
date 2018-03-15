@@ -50,6 +50,8 @@ echo "------------------------------"
 echo "Clonando proyecto"
 
 git clone https://github.com/Jairo95/siv.git
+cd siv
+pip install -r requirements.txt
 
 
 echo "Proceso finalizado"
